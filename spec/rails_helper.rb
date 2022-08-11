@@ -65,6 +65,7 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
   config.include ActionView::Helpers::DateHelper
+  config.include ActiveSupport::Testing::TimeHelpers
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
