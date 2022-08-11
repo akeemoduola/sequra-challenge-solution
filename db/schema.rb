@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_11_055726) do
+ActiveRecord::Schema.define(version: 2022_08_11_060709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 2022_08_11_055726) do
     t.index ["email"], name: "index_merchants_on_email", unique: true
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "merchant_id", null: false
+    t.bigint "shopper_id", null: false
+    t.decimal "amount", null: false
+    t.datetime "completed_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["merchant_id"], name: "index_orders_on_merchant_id"
+    t.index ["shopper_id"], name: "index_orders_on_shopper_id"
+  end
+
   create_table "shoppers", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -33,4 +44,6 @@ ActiveRecord::Schema.define(version: 2022_08_11_055726) do
     t.index ["email"], name: "index_shoppers_on_email", unique: true
   end
 
+  add_foreign_key "orders", "merchants"
+  add_foreign_key "orders", "shoppers"
 end
