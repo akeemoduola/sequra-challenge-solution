@@ -3,5 +3,6 @@ FactoryBot.define do
     merchant
     total_disburse_amount { 9.99 }
     week { 1 }
+    orders { [association(:order)] }
   end
 end
