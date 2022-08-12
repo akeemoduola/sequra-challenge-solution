@@ -12,12 +12,9 @@ class CalculateAndPersistDisbursementsJob < ApplicationJob
       ActiveRecord::Base.transaction do
         disbursement = Disbursement.create(new_disbursement_hash)
         
-        orders = merchant.orders.map do |order| 
-          order.update(disbursement_id: disbursement.id)
-          order
-        end
+        orders = merchant.orders
+        
         disbursement.orders =  orders
-        disbursement.save
       end
     end
   end
